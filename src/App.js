@@ -6,19 +6,22 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from "./pages/home/home";
 import {Connect} from "./pages/connect/connect";
 import { Gallery } from "./pages/gallery/gallery";
 import {Create} from "./pages/create/create";
+import { Header } from "./components/header/header";
 
 function App() {
   return (
     <>
+    <Header/>
       <Routes>
-        <Route path="/" element={<Home/> } />
-        <Route path="/gallery" element={<Gallery/> } />
-        <Route path="/create" element={<Create/>} />
-        <Route path="connect" element={<Connect/>} />
+        <Route exact  path="/" element={<Home/> } />
+        <Route exact  path="/gallery" element={<Gallery/>} />
+        <Route exact  path="/create" element={<Create/>} />
+        <Route exact  path="connect" element={<Connect/>} />
       </Routes>
     </>
   );
