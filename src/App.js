@@ -12,6 +12,7 @@ import {Connect} from "./pages/connect/connect";
 import { Gallery } from "./pages/gallery/gallery";
 import {Create} from "./pages/create/create";
 import { Header } from "./components/header/header";
+import { Footer } from "./components/footer/footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact  path="/create" element={<Create/>} />
         <Route exact  path="connect" element={<Connect/>} />
       </Routes>
+      <Footer/>
     </>
   );
 }
