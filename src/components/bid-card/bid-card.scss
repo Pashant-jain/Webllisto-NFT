@@ -1,0 +1,105 @@
+.birdcard_wrp {
+  background: #4d4c5a;
+  padding: 1px;
+  &:hover {
+    background: linear-gradient(
+      158.44deg,
+      #ebc77a 7.17%,
+      #ca3f8d 52.72%,
+      #5142fc 91.26%
+    );
+  }
+  .bidcard_inner {
+    background-color: #2c2c39;
+    padding: 18px;
+    .card_wrp {
+      margin-bottom: 15px;
+      border-radius: 8px;
+      text-align: center;
+      height: 188px;
+      margin: 0 auto 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        margin: auto;
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+    .card_dtl_wrp {
+      h3 {
+        font-weight: 6 00;
+        font-size: 18px;
+        line-height: 24px;
+        color: #fff;
+        margin-bottom: 16px;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+      .card_dtl_inner {
+        h4 {
+          font-size: 14px;
+          line-height: 10px;
+          font-weight: 600;
+          color: #fff;
+          margin: unset;
+        }
+        span {
+          font-size: 14px;
+          line-height: 10px;
+          font-weight: 600;
+          color: #a1a0ae;
+          margin: unset;
+        }
+        .card_dtl_lft_wrp {
+          figure {
+            width: 32px;
+            height: 32px;
+            margin: auto 10px auto 0;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+    .card_action_wrp {
+      padding-top: 20px;
+      border-top: 1px solid rgba(229, 231, 235, 0.3);
+      margin-top: 20px;
+      button {
+        &.place_bid_btn {
+          background-color: #5142fc;
+          margin-right: 16px;
+          font-size: 14px;
+          line-height: 16px;
+          font-weight: 600;
+          color: #fff;
+          padding: 12px;
+          border-radius: 8px;
+          border: unset;
+        }
+        &.like_btn {
+          background-color: #ffff;
+          padding: 5px;
+          border: unset;
+          border-radius: 8px;
+          img {
+            height: 15px;
+            width: 15px;
+          }
+          span {
+            padding-left: 8px;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 600;
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+}

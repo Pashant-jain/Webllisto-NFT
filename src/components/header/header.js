@@ -1,4 +1,5 @@
 import React from "react";
+import './header.scss'
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -12,10 +13,10 @@ export const Header = () => {
     const navigate = useNavigate()
   return (
     <div className="header_wrp">
-      <Navbar expand="lg" variant="dark" className="mb-3">
+      <Navbar expand="lg" variant="dark">
         <Container fluid>
           <Navbar.Brand href="#">
-            <img src={logo} />
+            <img src={logo} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
           <Navbar.Offcanvas

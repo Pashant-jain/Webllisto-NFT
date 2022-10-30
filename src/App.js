@@ -7,6 +7,8 @@ import {
   Route,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { Home } from "./pages/home/home";
 import {Connect} from "./pages/connect/connect";
 import { Gallery } from "./pages/gallery/gallery";

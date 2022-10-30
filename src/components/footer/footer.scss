@@ -1,11 +1,23 @@
 .footer_wrp{
     background-color: #2C2C39;
     .footer_copyright_inner{
-        padding: 12px  0;
+        padding: 12px 0;
         p{
             margin: unset;
             color: #A1A0AE;
+            font-size: 18px;
         }
     }
    
 }
+// responsive
+@media only screen and (max-width: 649px) {
+    .footer_wrp{
+        .footer_copyright_inner{
+            p{
+                font-size: 14px;
+            }
+        }
+       
+    }
+  } /* 480 */
