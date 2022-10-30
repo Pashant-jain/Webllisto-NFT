@@ -1,0 +1,39 @@
+.gallery_wrp {
+  .gallery_inner {
+    h1 {
+      font-size: 42px;
+      line-height: 1.25;
+      font-weight: 700;
+      color: #fff;
+      padding: 100px 0;
+    }
+    .sort_wrp {
+      border: 1px solid rgba(229, 231, 235, 0.3);
+      padding: 16px;
+      border-radius: 8px;
+      gap: 16px;
+      display: flex;
+        button {
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 20px;
+          background-color: #353444;
+          color: #fff;
+          padding: 12px;
+          border: unset;
+          border-radius: 8px;
+          &:hover{
+            background-color: #5142fc;
+          }
+        
+      }
+    }
+    .explore_nfts_wrp{
+        display: grid;
+        grid-template-columns: repeat(4,minmax(0,1fr));
+        gap:30px;
+        margin-top: 60px;
+       
+    }
+  }
+}
