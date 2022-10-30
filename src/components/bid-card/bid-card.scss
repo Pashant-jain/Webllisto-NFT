@@ -1,6 +1,7 @@
 .birdcard_wrp {
   background: #4d4c5a;
   padding: 1px;
+  border-radius: 15px;
   &:hover {
     background: linear-gradient(
       158.44deg,
@@ -12,6 +13,7 @@
   .bidcard_inner {
     background-color: #2c2c39;
     padding: 18px;
+    border-radius: 15px;
     .card_wrp {
       margin-bottom: 15px;
       border-radius: 8px;
