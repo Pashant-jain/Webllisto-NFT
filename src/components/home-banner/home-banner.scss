@@ -18,6 +18,7 @@
         color: #fff;
         font-weight: 700;
         line-height: 1.25;
+        word-break: break-word;
       }
       p {
         font-size: 18px;
@@ -26,20 +27,24 @@
         line-height: 24px;
         margin: 24px 0;
         padding-right: 60px;
+        word-break: break-word;
+      }
+      img {
+        width: 100%;
       }
       .banner_btn_wrp {
         button {
-            font-size: 18px;
-            line-height: 20px;
-            font-weight: 600;
-            color: #fff;
-            padding: 12px;
-            border-radius: 8px;
-            border:  2px solid #fff;
-            background-color: transparent;
+          font-size: 18px;
+          line-height: 20px;
+          font-weight: 600;
+          color: #fff;
+          padding: 12px;
+          border-radius: 8px;
+          border: 2px solid #fff;
+          background-color: transparent;
           &.color_btn {
-            background-color: #5142FC;
-            border-color: #5142FC;
+            background-color: #5142fc;
+            border-color: #5142fc;
             margin-right: 16px;
           }
         }
@@ -47,3 +52,52 @@
     }
   }
 }
+// responsive
+@media only screen and (max-width: 1023px) {
+  .banner_wrp {
+    .banner {
+      .banner_inner {
+        h1 {
+          padding-right: 250px;
+        }
+        p {
+          padding-right: 250px;
+        }
+      }
+    }
+  }
+} /* 980 */
+@media only screen and (max-width: 979px) {
+  .banner_wrp {
+    .banner {
+      .banner_inner {
+        h1 {
+          padding-right: unset;
+          font-size: 36px;
+        }
+        p {
+          padding-right: unset;
+        }
+      }
+    }
+  }
+} /* 768 */
+@media only screen and (max-width: 649px) {
+  .banner_wrp {
+    .banner {
+      .banner_inner {
+        h1 {
+        }
+        p {
+          font-size: 14px;
+        }
+        .banner_btn_wrp {
+          button {
+            font-size: 14px;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+  }
+} /* 480 */

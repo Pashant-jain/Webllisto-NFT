@@ -16,7 +16,7 @@ export const Header = () => {
       <Navbar expand="lg" variant="dark">
         <Container fluid>
           <Navbar.Brand href="#">
-            <img src={logo} />
+            <img src={logo} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
           <Navbar.Offcanvas

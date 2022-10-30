@@ -21,7 +21,7 @@ export const HomeBanner = () => {
               </div>
             </div>
             <div className="col-lg-6 col-md-12  my-auto  text-center">
-              <img src={bannerImg} />
+              <img src={bannerImg} alt="" />
             </div>
           </div>
         </div>
