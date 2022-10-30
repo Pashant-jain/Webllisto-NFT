@@ -12,4 +12,7 @@
     max-width:96%;
     margin:auto;
   }
+  br{
+    display:none;
+  }
 } /* 1024 */
