@@ -1,21 +1,19 @@
 import React from "react";
 import './header.scss'
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "../../assets/images/logo.svg";
 import { useNavigate } from 'react-router-dom';
+import { routeMap } from "../../rout-map";
 export const Header = () => {
     const navigate = useNavigate()
   return (
     <div className="header_wrp">
       <Navbar expand="lg" variant="dark">
         <Container fluid>
-          <Navbar.Brand href="#">
+          <Navbar.Brand onClick={() => navigate(routeMap.Home)}>
             <img src={logo} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
@@ -31,14 +29,14 @@ export const Header = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-center flex-grow-1 pe-3">
-                <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
-                <Nav.Link onClick={() => navigate("/gallery")}>
+                <Nav.Link onClick={() => navigate(routeMap.Home)}>Home</Nav.Link>
+                <Nav.Link onClick={() => navigate(routeMap.Gallery)}>
                   Gallery
                 </Nav.Link>
-                <Nav.Link onClick={() => navigate("/create")}>Create</Nav.Link>
-                <Nav.Link onClick={() => navigate("/connect")}>
+                <Nav.Link onClick={() => navigate(routeMap.Create)}>Create</Nav.Link>
+                <Nav.Link onClick={() => navigate(routeMap.Connect)}>
                   Connect
-                </Nav.Link>
+                </Nav.Link>#
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
