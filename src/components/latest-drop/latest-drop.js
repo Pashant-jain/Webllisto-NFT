@@ -39,6 +39,8 @@ export const LatestDrop = () => {
           }
         ]
       };
+
+      
   return (
     <div className="latestdrop_wrp">
       <div className="container-fluid">
@@ -48,14 +50,14 @@ export const LatestDrop = () => {
             </div>
             <div className="latestdrop_slider_wrp" >
             <Slider {...settings}>
+                {/* <BidCard/>
                 <BidCard/>
                 <BidCard/>
                 <BidCard/>
                 <BidCard/>
                 <BidCard/>
                 <BidCard/>
-                <BidCard/>
-                <BidCard/>  
+                <BidCard/>   */}
                 </Slider>
             </div>
         </div>

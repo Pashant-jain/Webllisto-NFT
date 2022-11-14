@@ -57,14 +57,22 @@
           margin: unset;
         }
         .card_dtl_lft_wrp {
+          text-align: left;
           figure {
             width: 32px;
             height: 32px;
+            border-radius: 50%;
             margin: auto 10px auto 0;
             img {
               width: 100%;
+              width: 32px;
+              height: 32px;
+              border-radius: 50%;
             }
           }
+        }
+        .card_dtl_right_wrp{
+          text-align: right;
         }
       }
     }
