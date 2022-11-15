@@ -3,6 +3,7 @@ import "./connect.scss";
 import metamask_logo from "../../assets/images/metamask_logo.svg";
 import kaikas_logo from "../../assets/images/kaikas_logo.svg";
 import { ethers } from 'ethers';
+import { Spiner } from "../../components/spiner/spiner";
 const provider = new ethers.providers.Web3Provider(window.ethereum);  
 
 export const Connect = () => {

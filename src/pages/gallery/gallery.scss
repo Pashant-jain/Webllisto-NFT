@@ -28,6 +28,12 @@
         
       }
     }
+    .explore_nfts_spiner{
+      min-height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .explore_nfts_wrp{
         display: grid;
         grid-template-columns: repeat(4,minmax(0,1fr));

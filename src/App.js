@@ -13,6 +13,7 @@ import {Create} from "./pages/create/create";
 import { Header } from "./components/header/header";
 import { Footer } from "./components/footer/footer";
 import { routeMap } from "./rout-map";
+import { Detail } from "./components/detail/detail";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact  path={routeMap.Gallery} element={<Gallery/>} />
         <Route exact  path={routeMap.Create} element={<Create/>} />
         <Route exact  path={routeMap.Connect} element={<Connect/>} />
+        <Route exact path={`${routeMap.Gallery}/:id`}  element={<Detail/>} />
       </Routes>
       <Footer/>
     </>

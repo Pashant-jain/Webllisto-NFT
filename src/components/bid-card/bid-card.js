@@ -1,13 +1,15 @@
 import React from "react";
 import "./bid-card.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
+import { Link } from "react-router-dom";
+import { routeMap } from "../../rout-map";
 // import liked from '../../assets/images/liked_heard.png'
 
 export const BidCard = ({ data }) => {
   // {debugger}
-  // console.log(data);
+  console.log(data);
   return (
-    <div className="birdcard_wrp">
+    <Link  to={data._id} className="birdcard_wrp">
       <div className="bidcard_inner">
         <div className="card_wrp">
           <img
@@ -60,6 +62,7 @@ export const BidCard = ({ data }) => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
+   
   );
 };
