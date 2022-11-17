@@ -40,6 +40,12 @@
                     figure {
                         margin-right: 8px;
                         margin-bottom: unset;
+                        height: 45px;
+                        width: 45px;
+                        img{
+                            width: 100%;
+                            border-radius: 50%;
+                        }
                     }
                     h3 {
                         font-size: 1rem;

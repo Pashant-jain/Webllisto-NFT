@@ -19,11 +19,11 @@ export const Gallery = () => {
           setData(res);
           setLoading(false)
         }
-      } catch (err) {}
+      }
+      catch (err) {} 
     };
     fetchData();
   }, []);
-  console.log("test ", data);
   return (
     <div className="gallery_wrp">
       <div className="container-fluid">

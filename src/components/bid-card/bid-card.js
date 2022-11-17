@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./bid-card.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
 import { Link } from "react-router-dom";
@@ -6,8 +6,6 @@ import { routeMap } from "../../rout-map";
 // import liked from '../../assets/images/liked_heard.png'
 
 export const BidCard = ({ data }) => {
-  // {debugger}
-  console.log(data);
   return (
     <Link  to={data._id} className="birdcard_wrp">
       <div className="bidcard_inner">
@@ -41,8 +39,8 @@ export const BidCard = ({ data }) => {
               </div>
             </div>
             <div className="card_dtl_right_wrp">
-              <h4> {data?.created_by
-                    ? data?.created_by.toString().substring(0, 5) +
+              <h4> {data?.last_price
+                    ? data?.last_price.toString().substring(0, 5) +
                       "..." 
                     : ""}ETH</h4>
               <span>Current Bit</span>
