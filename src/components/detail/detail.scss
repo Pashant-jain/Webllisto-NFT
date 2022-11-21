@@ -40,11 +40,11 @@
                     figure {
                         margin-right: 8px;
                         margin-bottom: unset;
-                        height: 45px;
-                        width: 45px;
                         img{
                             width: 100%;
                             border-radius: 50%;
+                            width: 45px;
+                            height: 45px;
                         }
                     }
                     h3 {
@@ -109,6 +109,11 @@
                                 figure {
                                     margin-right: 8px;
                                     margin-bottom: unset;
+                                    img{
+                                        width: 30px;
+                                        height: 30px;
+                                        border-radius: 50%;
+                                    }
                                 }
                                 h4 {
                                     font-size: 0.875rem;

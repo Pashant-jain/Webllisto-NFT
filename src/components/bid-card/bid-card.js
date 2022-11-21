@@ -7,7 +7,7 @@ import { routeMap } from "../../rout-map";
 
 export const BidCard = ({ data }) => {
   return (
-    <Link  to={data._id} className="birdcard_wrp">
+    <Link  to={`${routeMap.Gallery}/${data._id}`} className="birdcard_wrp">
       <div className="bidcard_inner">
         <div className="card_wrp">
           <img
@@ -39,10 +39,12 @@ export const BidCard = ({ data }) => {
               </div>
             </div>
             <div className="card_dtl_right_wrp">
-              <h4> {data?.last_price
+              <h4>{((data?.last_price)*10**(-18)).toFixed(2)} ETH</h4>
+
+              {/* {data?.last_price
                     ? data?.last_price.toString().substring(0, 5) +
                       "..." 
-                    : ""}ETH</h4>
+                    : ""} */}
               <span>Current Bit</span>
             </div>
           </div>

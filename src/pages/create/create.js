@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from "react";
 import metamask_logo from "../../assets/images/metamask_logo.svg";
 import kaikas_logo from "../../assets/images/kaikas_logo.svg";
-import { ethers } from 'ethers';
-// const provider = new ethers.providers.Web3Provider(window.ethereum);  
+import { ethers } from 'ethers'; 
 
 export const Create = () => {
   const [haveMetamask, sethaveMetamask] = useState(true);

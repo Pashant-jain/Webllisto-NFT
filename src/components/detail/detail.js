@@ -4,13 +4,14 @@ import "./detail.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { nftDetailAction } from "../../redux/actions/detail-action/detail-action";
+import { nftDetailAction, nftHistoryAction } from "../../redux";
 import { useParams } from "react-router-dom";
 import { Spiner } from "../spiner/spiner";
 import Slider from "react-slick";
 
 export const Detail = () => {
   const [data, setData] = useState();
+  const [history, setHistory] = useState();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const collectible_id = useParams();
@@ -20,17 +21,19 @@ export const Detail = () => {
       setLoading(true);
       try {
         const res = await dispatch(nftDetailAction(collectible_id));
+        const history = await dispatch(nftHistoryAction(collectible_id));
 
-        if (res) {
+        if (res || history) {
+          setHistory(history)
           setData(res);
-          console.log(data);
+          
           setLoading(false);
         }
       } catch (err) {}
     };
     fetchData();
   }, []);
-
+  // console.log(history);
   const settings = {
     infinite: false,
     dots: false,
@@ -44,7 +47,7 @@ export const Detail = () => {
     adaptiveHeightSpeed: 750,
  
   };
-  console.log(data);
+  // console.log(data);
   return (
     <div className="details_wrp">
       <div className="container-fluid">
@@ -131,27 +134,34 @@ export const Detail = () => {
                     <Tab eventKey="History" title="History">
                       <>
                         <div className="history_wrp">
-                          <div className="history d-flex justify-content-between align-items-center">
+                          {history?.map((item) => {
+                          return(
+                            <div key={item._id} className="history d-flex justify-content-between align-items-center">
                             <div className="history_dtl d-flex justify-content-between align-items-center">
                               <figure>
                                 <img
-                                  src="https://nft-tailwind.preview.uideck.com/images/picks/creator-01.png"
+                                  src={item?.image}
                                   alt="creator"
                                   className=""
                                 />
                               </figure>
                               <div className="history_dtl_inner">
-                                <h4>@Devid_Mill...</h4>
-                                <span>5 Hours ago</span>
+                                <h4>{item.type}</h4>
+                                {/* <span>xbafdha
+                               
+                                </span> */}
                               </div>
                             </div>
                             <div className="history_time">
-                              <span className="">11/02/2022, 07:13 PM</span>
+                              <span className="">{item.time}</span>
                             </div>
                             <div className="history_price">
-                              <span className="">4.75 ETH</span>
+                           
+                              <span className="">{((item.amount)*10**(-18)).toFixed(2)} ETH</span>
                             </div>
                           </div>
+                          )
+                          })}
                         </div>
                       </>
                     </Tab>

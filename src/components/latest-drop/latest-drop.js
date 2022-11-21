@@ -61,7 +61,7 @@ export const LatestDrop = () => {
     };
     fetchData();
   }, []);
-  console.log(data);
+  // console.log(data);
   return (
     <div className="latestdrop_wrp">
       <div className="container-fluid">

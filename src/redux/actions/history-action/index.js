@@ -1,9 +1,9 @@
-import { nftDetailApi } from "../../api/detail-api/detail-api"
+import { nftHistoryApi } from "../../api"
 
-export const nftDetailAction = (collectible_id) => {
+export const nftHistoryAction = (collectible_id) => {
     return async () => {
       try {
-        let result = await nftDetailApi(collectible_id)
+        let result = await nftHistoryApi(collectible_id)
         if (result.data) {
           return result.data.data
         }
