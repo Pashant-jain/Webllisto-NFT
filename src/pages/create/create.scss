@@ -20,6 +20,33 @@
                     padding: 30px;
                     width: 100%;
                     height: 500px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .undroped_img_wrp {
+                        h2 {
+                            font-size: 1.25rem;
+                            line-height: 1.75rem;
+                            color: #fff;
+                        }
+                        p {
+                            font-size: 1rem;
+                            line-height: 1.5rem;
+                            font-weight: 500;
+                            color: #A1A0AE  ;
+                        }
+                    }
+                    .droped_img_wrp{
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
                 }
             }
             .create_form_right_wrp {
@@ -45,6 +72,11 @@
                             line-height: 1.5rem;
                             font-weight: 500;
                             padding: 8px 12px;
+                            &::-webkit-outer-spin-button,&::-webkit-inner-spin-button,& input[type=number]{
+                                -webkit-appearance: none;
+                                margin: 0;
+                                -moz-appearance: textfield;
+                            }
                         }
                     }
                     .category_wrp {
@@ -90,9 +122,20 @@
                             }
                         }
                     }
-                    .submit_wrp{
-                        button{
+                    .submit_wrp {
+                        button {
                             width: 100%;
+                            font-size: 1rem;
+                            line-height: 1.5rem;
+                            font-weight: 600;
+                            background-color: #5142FC;
+                            color: #fff;
+                            padding: 12px 24px;
+                            outline: 2px solid transparent;
+                            outline-offset: 2px;
+                        box-shadow: unset;
+                        border: unset;
+                        border-radius: 8px;
                         }
                     }
                 }
