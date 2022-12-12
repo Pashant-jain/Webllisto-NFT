@@ -132,18 +132,8 @@ export const Create = () => {
     }
   };
   const createTeamHandler = async () => {
-    const blobToBinary = async (blob) => {
-      const buffer = await blob.arrayBuffer();
-
-      const view = new Int8Array(buffer);
-
-      return [...view].map((n) => n.toString(2)).join(" ");
-    };
-
-    const blob = new Blob([attachment], { type: "text/plain" });
     try {
       setIsSubmitted(true);
-      debugger;
       const finalPropertyArr = [];
       const items = document.querySelectorAll(".property_field_wrp") || null;
       for (const item of items) {
@@ -162,7 +152,6 @@ export const Create = () => {
       }
       formData.append("title", title);
       formData.append("royalties", royalties || "");
-      debugger;
       formData.append(
         "category_id",
         selectedCategory && selectedCategory._id ? selectedCategory._id : ""
@@ -192,19 +181,19 @@ export const Create = () => {
 
       const result = await dispatch(createItemAction(formData));
       if (result) {
-        SetIpfs(result.data);
+        // SetIpfs(result.data);
         setIsSubmitted(false);
-        Setitemid(result.data._id);
+        // Setitemid(result.data._id);
         setIsLoaded(true);
         if (result && result.status) {
-          toast.success("Collectible created successfully", {
+          toast.success("Item created successfully", {
             appearance: "success",
             autoDismiss: true,
             theme: "colored",
           });
           setIsModalVisible(true);
           setHideCursor(false);
-          navigate(`/${routeMap.Gallery}/${itemid}`);
+          navigate(`${routeMap.Gallery}/${result.data._id}`);
         }
       } else {
         setIsSubmitted(false);

@@ -58,7 +58,7 @@ export const BidCard = ({ data }) => {
             className="d-flex justify-content-between align-items-center like_btn "
           >
             <img src={unliked} alt="" />
-            <span>{data.view_count}</span>
+            <span>{data.total_like}</span>
           </button>
         </div>
       </div>
