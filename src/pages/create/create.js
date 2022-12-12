@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./create.scss";
 import { AllcollectionCategory } from "../../redux/actions/user-create-collection";
 import { useDispatch } from "react-redux";
-import { Dropdown} from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { createItemAction } from "../../redux";
+import { useNavigate } from "react-router-dom";
+import { routeMap } from "../../rout-map";
 export const Create = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [attachment, setAttachment] = useState("");
   const [allcategory, setAllcategory] = useState();
@@ -13,16 +16,16 @@ export const Create = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [royalties, setRoyalties] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState({name: 'Select Category'});
   // const [usdAmount, setUsdAmount] = useState(0);
   const [errorAttach, setErrorAttach] = useState(false);
   const [isSubmited, setIsSubmitted] = useState(false);
   const [hideCursor, setHideCursor] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
-  const [collectionAddress, setCollectionAddress] = useState('');
+  const [collectionAddress, setCollectionAddress] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [Ipfs, SetIpfs] = useState();
-  const [itemid, Setitemid] = useState('');
+  const [itemid, Setitemid] = useState("");
   const [error, setError] = useState({
     price: "",
     title: "",
@@ -33,15 +36,15 @@ export const Create = () => {
     nftType: "",
     nftCategory: "",
   });
-  
-  const network_id = 1
+
+  const network_id = 1;
   useEffect(() => {
     setCollectionAddress(
       network_id === process.env.REACT_APP_KLATYN_NETWORK_ID
         ? process.env.REACT_APP_KLYTN_USER_MINTABLE_ADD
-        : process.env.REACT_APP_ETH_USER_MINTABLE_ADD,
+        : process.env.REACT_APP_ETH_USER_MINTABLE_ADD
     );
-console.log(selectedCategory);
+    console.log(selectedCategory);
     const fetchData = async () => {
       try {
         const Collaction = await dispatch(AllcollectionCategory());
@@ -52,64 +55,58 @@ console.log(selectedCategory);
     };
     fetchData();
   }, []);
-  function handleChange(e) {
-    console.log(e.target.files);
-    setAttachment(URL.createObjectURL(e.target.files[0]));
-  }
-  
+
   const handleModal = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
-    let errorMsg1 = '';
-    let errorMsg2 = '';
-    let errorMsg3 = '';
-    let errorMsg4 = '';
-    const errorMsg5 = '';
-    let errorMsg6 = '';
-    let errorMsg7 = '';
-    let errorMsg8 = '';
-    if (attachment == '' || attachment == null || !attachment) {
-      errorMsg1 = 'Image can not be empty';
+    let errorMsg1 = "";
+    let errorMsg2 = "";
+    let errorMsg3 = "";
+    let errorMsg4 = "";
+    const errorMsg5 = "";
+    let errorMsg6 = "";
+    let errorMsg7 = "";
+    let errorMsg8 = "";
+    if (attachment == "" || attachment == null || !attachment) {
+      errorMsg1 = "Image can not be empty";
       setErrorAttach(true);
     } else if (attachment.size / 1024 / 1024 > 30) {
-      errorMsg1 = 'Please select file size not more than 30 MB';
+      errorMsg1 = "Please select file size not more than 30 MB";
       setErrorAttach(true);
       toast.error(
-        'Please select file size not more than 30 MB with valid format(Image, MP3, MP4)',
-        { appearance: 'error', autoDismiss: true },
+        "Please select file size not more than 30 MB with valid format(Image, MP3, MP4)",
+        { appearance: "error", autoDismiss: true, theme: "colored", }
       );
     }
 
-    if (title === '') {
-      errorMsg2 = 'Title can not be empty';
+    if (title === "") {
+      errorMsg2 = "Title can not be empty";
     }
     const regex = /^\d+(\.\d{1,2})?$/;
     const regex1 = /^(?:\d*\.\d{1,17}|\d+)$/;
-    if (royalties === '') {
-      errorMsg3 = 'Royalties can not be empty';
+    if (royalties === "") {
+      errorMsg3 = "Royalties can not be empty";
     } else if (royalties > 90) {
-      errorMsg3 = 'Royalties can not set more than 90';
+      errorMsg3 = "Royalties can not set more than 90";
     } else if (royalties < 0) {
-      errorMsg3 = 'Royalties can not set less than 0';
+      errorMsg3 = "Royalties can not set less than 0";
     } else if (!regex.test(royalties)) {
       errorMsg3 =
-        'Royalties can set only two decimal after a number, For example: 51.36';
+        "Royalties can set only two decimal after a number, For example: 51.36";
     }
-    if (price === '') {
-      errorMsg7 = 'Price can not be empty';
+    if (price === "") {
+      errorMsg7 = "Price can not be empty";
     } else if (price.length >= 19) {
-      errorMsg7 = 'Price should not more then 18 digit';
+      errorMsg7 = "Price should not more then 18 digit";
     } else if (price <= 0) {
-      errorMsg7 = 'Price must be greater than 0';
+      errorMsg7 = "Price must be greater than 0";
     } else if (!regex1.test(price)) {
-      errorMsg7 = 'Please enter correct value';
+      errorMsg7 = "Please enter correct value";
     }
 
-    if (selectedCategory === 'Select Category') {
-      errorMsg6 = 'Category can not be empty';
+    if (selectedCategory === "Select Category") {
+      errorMsg6 = "Category can not be empty";
     }
-
-   
 
     setError({
       ...error,
@@ -119,17 +116,17 @@ console.log(selectedCategory);
       nftType: errorMsg4,
       nftCategory: errorMsg6,
       price: errorMsg7,
-      isAgreementSignedErr: errorMsg8
+      isAgreementSignedErr: errorMsg8,
     });
     if (
-      errorMsg1 == '' &&
-      errorMsg2 == '' &&
-      errorMsg3 == '' &&
-      errorMsg4 == '' &&
-      errorMsg5 == '' &&
-      errorMsg6 == '' &&
-      errorMsg7 == '' &&
-      errorMsg8 == ''
+      errorMsg1 == "" &&
+      errorMsg2 == "" &&
+      errorMsg3 == "" &&
+      errorMsg4 == "" &&
+      errorMsg5 == "" &&
+      errorMsg6 == "" &&
+      errorMsg7 == "" &&
+      errorMsg8 == ""
     ) {
       createTeamHandler();
     }
@@ -137,74 +134,77 @@ console.log(selectedCategory);
   const createTeamHandler = async () => {
     const blobToBinary = async (blob) => {
       const buffer = await blob.arrayBuffer();
-      
+
       const view = new Int8Array(buffer);
-      
-      return [...view].map((n) => n.toString(2)).join(' ');
+
+      return [...view].map((n) => n.toString(2)).join(" ");
     };
-    
+
     const blob = new Blob([attachment], { type: "text/plain" });
     try {
       setIsSubmitted(true);
-      debugger
+      debugger;
       const finalPropertyArr = [];
-      const items =
-        document.querySelectorAll('.property_field_wrp') || null;
+      const items = document.querySelectorAll(".property_field_wrp") || null;
       for (const item of items) {
-        const key = item.getElementsByTagName('input')[0].value;
-        const value = item.getElementsByTagName('input')[1].value;
+        const key = item.getElementsByTagName("input")[0].value;
+        const value = item.getElementsByTagName("input")[1].value;
         if (key || value) {
           finalPropertyArr.push({ key: key, value: value });
         }
       }
 
       const formData = new FormData();
-      formData.append('description', description || '');
+      formData.append("description", description || "");
       let network = 1;
       if (network_id == process.env.REACT_APP_KLATYN_NETWORK_ID) {
         network = 2;
       }
-      formData.append('title', title);
-      formData.append('royalties', royalties || '');
-      debugger
+      formData.append("title", title);
+      formData.append("royalties", royalties || "");
+      debugger;
       formData.append(
-        'category_id',
-        selectedCategory && selectedCategory._id ? selectedCategory._id : '',
+        "category_id",
+        selectedCategory && selectedCategory._id ? selectedCategory._id : ""
       );
       formData.append(
-        'nft_type',
-        selectedCategory && selectedCategory.name ? selectedCategory.name.toLowerCase() : '',
+        "nft_type",
+        selectedCategory && selectedCategory.name
+          ? selectedCategory.name.toLowerCase()
+          : ""
       );
 
-      formData.append('isLuxuryAuthReq', 'false');
-      formData.append('brand', '');
-      formData.append('attachment', blobToBinary(blob)  || '');
-      formData.append('network_id', network);
-      formData.append('collection_address', collectionAddress);
-      formData.append('collectible_owner', '0x2aFB6ACFb8e84b93dE2B9eebf113cE63d5F1fb65');
+      formData.append("isLuxuryAuthReq", "false");
+      formData.append("brand", "");
+      formData.append("attachment", attachment || "");
+      formData.append("network_id", network);
+      formData.append("collection_address", collectionAddress);
+      formData.append(
+        "collectible_owner",
+        "0x2aFB6ACFb8e84b93dE2B9eebf113cE63d5F1fb65"
+      );
 
       window.onbeforeunload = function () {
-        return 'If you reload this page, your previous action will be repeated';
+        return "If you reload this page, your previous action will be repeated";
       };
       setHideCursor(true);
       setIsLoaded(false);
-     
-      const result = await dispatch(
-        createItemAction(formData)
-      );
+
+      const result = await dispatch(createItemAction(formData));
       if (result) {
         SetIpfs(result.data);
         setIsSubmitted(false);
         Setitemid(result.data._id);
         setIsLoaded(true);
         if (result && result.status) {
-          toast.success('Collectible created successfully', {
-            appearance: 'success',
+          toast.success("Collectible created successfully", {
+            appearance: "success",
             autoDismiss: true,
+            theme: "colored",
           });
           setIsModalVisible(true);
           setHideCursor(false);
-          
+          navigate(`/${routeMap.Gallery}/${itemid}`);
         }
       } else {
         setIsSubmitted(false);
@@ -224,28 +224,29 @@ console.log(selectedCategory);
     const { name, value } = e.target;
     const regexImg = new RegExp("(.*?).(gif|jpe?g|png|webp|bmp|svg)$");
     switch (name) {
-      case 'attachment':
-        if (value === '' || value == null || !value) {
+      case "attachment":
+        if (value === "" || value == null || !value) {
           if (!attachment) {
-            setError({ ...error, attachment: 'can not be empty' });
+            setError({ ...error, attachment: "can not be empty" });
           }
         } else {
-          setError({ ...error, attachment: '' });
+          setError({ ...error, attachment: "" });
         }
         if (
           e.target.files &&
           e.target.files[0] &&
-          !e.target.files[0]?.type?.startsWith('image/') &&
-          !e.target.files[0]?.type?.startsWith('video/mp4') &&
-          !e.target.files[0]?.type?.startsWith('audio/')
+          !e.target.files[0]?.type?.startsWith("image/") &&
+          !e.target.files[0]?.type?.startsWith("video/mp4") &&
+          !e.target.files[0]?.type?.startsWith("audio/")
         ) {
           setError({
             ...error,
-            attachment: 'Please select file  valid format(Image, MP3, MP4)',
+            attachment: "Please select file  valid format(Image, MP3, MP4)",
           });
-          toast.error('Please select file valid format(Image, MP3, MP4)', {
-            appearance: 'error',
+          toast.error("Please select file valid format(Image, MP3, MP4)", {
+            appearance: "error",
             autoDismiss: true,
+            theme: "colored",
           });
           return;
         }
@@ -255,23 +256,21 @@ console.log(selectedCategory);
             imageurl: e.target.files[0],
             name: 'attachment',
           };
-         
-
-        
           if (e.target.files[0].size / 1024 / 1024 > 30) {
             setError({
               ...error,
-              attachment: 'Please select file size not more than 30 MB',
+              attachment: "Please select file size not more than 30 MB",
             });
             setErrorAttach(true);
-            toast.error('Please select file size not more than 30 MB', {
-              appearance: 'error',
+            toast.error("Please select file size not more than 30 MB", {
+              appearance: "error",
               autoDismiss: true,
+              theme: "colored",
             });
             return;
           } else {
             setErrorAttach(false);
-            setError({ ...error, attachment: '' });
+            setError({ ...error, attachment: "" });
           }
         }
         break;
@@ -283,53 +282,53 @@ console.log(selectedCategory);
         }
         setTitle(value);
         break;
-        case 'description':
+      case "description":
         setDescription(value);
         break;
-        case 'royalties':
+      case "royalties":
         const regex = /^\d+(\.\d{1,2})?$/;
-        if (value === '') {
-          setError({ ...error, royalties: 'Royalties can not be empty' });
+        if (value === "") {
+          setError({ ...error, royalties: "Royalties can not be empty" });
         } else if (value < 0) {
           setError({
             ...error,
-            royalties: 'Royalties can not set less than 0',
+            royalties: "Royalties can not set less than 0",
           });
         } else if (!regex.test(value)) {
           setError({
             ...error,
             royalties:
-              'Royalties can set only two decimal after a number, For example: 51.36',
+              "Royalties can set only two decimal after a number, For example: 51.36",
           });
         } else if (value > 90) {
           setError({
             ...error,
-            royalties: 'Royalties can not set more than 90',
+            royalties: "Royalties can not set more than 90",
           });
         } else {
-          setError({ ...error, royalties: '' });
+          setError({ ...error, royalties: "" });
         }
         setRoyalties(value);
         break;
-          case 'price':
+      case "price":
         const regCheck = /^(?:\d*\.\d{1,17}|\d+)$/;
-        if (value === '') {
+        if (value === "") {
           // setUsdAmount(0);
-          setPrice('');
-          setError({ ...error, price: 'Price can not be empty' });
+          setPrice("");
+          setError({ ...error, price: "Price can not be empty" });
         } else if (value <= 0) {
           // setUsdAmount(0);
           setPrice(value);
-          setError({ ...error, price: 'Price must be greater than 0' });
+          setError({ ...error, price: "Price must be greater than 0" });
         } else if (!regCheck.test(value)) {
           setPrice(value);
-          setError({ ...error, price: 'Please enter correct value' });
+          setError({ ...error, price: "Please enter correct value" });
           return false;
         } else if (value.length >= 19) {
-          setError({ ...error, price: 'Price should not more then 18 digit' });
+          setError({ ...error, price: "Price should not more then 18 digit" });
           return false;
         } else {
-          setError({ ...error, price: '' });
+          setError({ ...error, price: "" });
           setPrice(value);
         }
         break;
@@ -351,7 +350,9 @@ console.log(selectedCategory);
                     <input
                       type="file"
                       className="d-none"
-                      onChange={handleChange}
+                      name="attachment"
+                      // onChange={(e) => handleChange(e)}
+                      onChange={(e) => inputClickHandler(e)}
                     />
                     <div>
                       {attachment === "" ? (
@@ -372,12 +373,21 @@ console.log(selectedCategory);
                             <p>
                               File types Supported: jpg, png, gif, svg, mp4, mp3
                             </p>
+                            <span
+                        style={{
+                          color: "red",
+                          fontSize: 12,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {error.attachment}
+                      </span>
                           </div>
                         </>
                       ) : (
                         <>
                           <div className="droped_img_wrp">
-                            <img src={attachment} />
+                            <img src={window.URL.createObjectURL(attachment)} />
                           </div>
                         </>
                       )}
@@ -423,7 +433,7 @@ console.log(selectedCategory);
                         type="number"
                         className="form-control"
                         id="price"
-                        name='price'
+                        name="price"
                         onChange={(e) => inputClickHandler(e)}
                         placeholder="0 ETH"
                       />
@@ -434,7 +444,7 @@ console.log(selectedCategory);
                           fontWeight: "bold",
                         }}
                       >
-                       {error.price}
+                        {error.price}
                       </span>
                     </div>
                     <div className="form-group">
@@ -443,7 +453,7 @@ console.log(selectedCategory);
                         type="number"
                         className="form-control"
                         id="royalties"
-                        name='royalties'
+                        name="royalties"
                         onChange={(e) => inputClickHandler(e)}
                         placeholder="10"
                       />
@@ -454,7 +464,7 @@ console.log(selectedCategory);
                           fontWeight: "bold",
                         }}
                       >
-                       {error.royalties}
+                        {error.royalties}
                       </span>
                     </div>
                     <div className="form-group category_wrp">
@@ -496,11 +506,13 @@ console.log(selectedCategory);
                           fontWeight: "bold",
                         }}
                       >
-                       {error.selectedCategory}
+                        {error.selectedCategory}
                       </span>
                     </div>
                     <div className="submit_wrp">
-                      <button type="submit"   onClick={handleModal} >Create Item</button>
+                      <button type="submit" onClick={handleModal}>
+                        {isLoaded ? 'Create Item' : 'Creating Item ...'}
+                      </button>
                     </div>
                   </div>
                 </div>
