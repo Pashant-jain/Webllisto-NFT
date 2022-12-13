@@ -6,69 +6,68 @@ import { ethers } from "ethers";
 import { Spiner } from "../../components/spiner/spiner";
 import { toast } from "react-toastify";
 import { id } from "ethers/lib/utils";
-import Caver from "caver-js";
+// import Caver from 'caver-js'
+
 
 export const Connect = () => {
-  const caver = new Caver(window.klaytn);
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [accountAddress, setAccountAddress] = useState("");
-  const [matamaskaccountBalance, setMetamaskAccountBalance] = useState("");
   const [klatnaccountAddress, setKlatnaccountAddress] = useState("");
-  const [klatnaccountBalance, setKlatnaccountBalance] = useState("");
+  const [accountBalance, setAccountBalance] = useState("");
   const [isConnected, setIsConnected] = useState(false);
   const { ethereum } = window;
-  const klayProvider = window["klaytn"];
+  // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider =
     window.ethereum != null
       ? new ethers.providers.Web3Provider(window.ethereum)
       : ethers.providers.getDefaultProvider();
 
   const checkMetamaskAvailability = async () => {
-    if (ethereum) {
-      sethaveMetamask(true);
-      try {
-        if (ethereum) {
-          sethaveMetamask(false);
-        }
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        let balance = await provider.getBalance(accounts[0]);
-        let bal = ethers.utils.formatEther(balance);
-        setAccountAddress(accounts[0]);
-        setMetamaskAccountBalance(bal);
-        setIsConnected(true);
-      } catch (error) {
-        setIsConnected(false);
-      }
-    } else {
+    if (!ethereum) {
       sethaveMetamask(false);
       toast.error("metamask  Wallet Not Found", {
         theme: "colored",
       });
+    } else {
+      sethaveMetamask(true);
+      connectWallet();
     }
   };
-  const kaikas = async () => {
+  const connectWallet = async () => {
     try {
-      let kaikasWalletaddress = (await window.klaytn.enable())[0];
-      const balance = await caver.klay.getBalance(kaikasWalletaddress);
-      setKlatnaccountAddress(kaikasWalletaddress);
-      setKlatnaccountBalance(balance);
-
-      console.log(klayProvider, "gha");
-    } catch (error) {
-      toast.error("kaikas Wallet Not Found", {
-        theme: "colored",
+      if (!ethereum) {
+        sethaveMetamask(false);
+      }
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
       });
+      let balance = await provider.getBalance(accounts[0]);
+      let bal = ethers.utils.formatEther(balance);
+      setAccountAddress(accounts[0]);
+      setAccountBalance(bal);
+      setIsConnected(true);
+    } catch (error) {
+      setIsConnected(false);
     }
   };
-  {accountAddress &&   ethereum.on("accountsChanged", function (accounts) {
-    checkMetamaskAvailability();
-  }); }
-{klatnaccountAddress &&  klayProvider.on("accountsChanged", function (kaikasWalletaddress) {
-  kaikas();
-});}
- 
+
+  // const kaikas = async () => {
+  //   try {
+  //     const caver = new Caver(klaytn)
+  //     debugger
+  //     let kaikasWalletaddress = (await window.klaytn.enable())[0];
+  //     const balance = await caver.klay.getBalance(kaikasWalletaddress)
+  //     setKlatnaccountAddress(kaikasWalletaddress);
+  //     const klayProvider = window["klaytn"];
+  //     // const account = provider.selectedAddress
+  //     // const balance = await this.caver.klay.getBalance(account);
+  //     console.log(klayProvider, "gha");
+  //   } catch (error) {
+  //     toast.error("kaikas Wallet Not Found", {
+  //       theme: "colored",
+  //     });
+  //   }
+  // };
 
   return (
     <div className="connect_wrp">
@@ -90,19 +89,19 @@ export const Connect = () => {
               </figure>
               <h2>Meta Mask</h2>
               {isConnected ? (
-                <>
-                  <p>
-                    {" "}
-                    {accountAddress.slice(0, 4)}...
-                    {accountAddress.slice(38, 42)}
-                  </p>
-                  <p>Wallet Ballence {matamaskaccountBalance}</p>
-                </>
+              <>
+                <p>
+                  {" "}
+                  {accountAddress.slice(0, 4)}...
+                  {accountAddress.slice(38, 42)}
+                </p>
+                <p>Wallet Ballence {accountBalance}</p>
+              </>
               ) : (
                 <p>Lorem ipsum dolor sit amet consectetur smit.</p>
               )}
             </div>
-            <div onClick={kaikas} className="wallet_block">
+            <div className="wallet_block">
               <figure>
                 <img src={kaikas_logo} alt="kaikas" />
               </figure>
@@ -114,9 +113,10 @@ export const Connect = () => {
                     .toString()
                     .substr(klatnaccountAddress.length - 4)}
               </p>
-              <p>Wallet Ballence {klatnaccountBalance * 10 ** -18}</p>
+              <p>Wallet Ballence </p>
             </div>
           </div>
+          
         </div>
       </div>
     </div>

@@ -39,7 +39,8 @@ export const BidCard = ({ data }) => {
               </div>
             </div>
             <div className="card_dtl_right_wrp">
-              <h4>{((data?.last_price)*10**(-18)).toFixed(2)} ETH</h4>
+              {data?.last_price &&   <h4>{((data?.last_price)*10**(-18)).toFixed(2)} ETH</h4>}
+             
 
               {/* {data?.last_price
                     ? data?.last_price.toString().substring(0, 5) +
