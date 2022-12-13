@@ -28,21 +28,7 @@ export const Gallery = () => {
   useEffect(() => {
     fetchData();
   }, [catagory]);
-  // console.log(collection);
 
-  // const onCategoryClickHandler = async(category) => {
-  //   console.log("category name : ", category);
-  //   setLoading(true);
-  //   try {
-  //     const res = await dispatch(galleryNftAction(category));
-  //     const Collaction = await dispatch(AllcollectionCategory());
-  //     if (res || Collaction) {
-  //       setData(res);
-  //       setCollection(Collaction);
-  //       setLoading(false);
-  //     }
-  //   } catch (err) {}
-  // };
   console.log(catagory);
   return (
     <div className="gallery_wrp">
@@ -50,24 +36,19 @@ export const Gallery = () => {
         <div className="gallery_inner text-center ">
           <h1>Explore Items</h1>
           <div className="sort_wrp">
-          <button
-                type="button"
-                onClick={(e) => setCatagory('')}
-              >
-             All
-              </button>
-            {collection?.map((item) =>{
-              return(
+            <button type="button" onClick={(e) => setCatagory("")}>
+              All
+            </button>
+            {collection?.map((item) => {
+              return (
                 <button
-                type="button"
-                onClick={(e) => setCatagory((item.name).toLowerCase())}
-              >
-             {(item.name).toString().substring(0, 5) +
-                      "..." }
-              </button>
-              )
-            } )}
-          
+                  type="button"
+                  onClick={(e) => setCatagory(item.name.toLowerCase())}
+                >
+                  {item.name.toString().substring(0, 5) + "..."}
+                </button>
+              );
+            })}
           </div>
           {loading ? (
             <div className="explore_nfts_spiner">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./detail.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
+import liked from "../../assets/images/liked_heard.png";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { nftDetailAction, nftHistoryAction } from "../../redux";
@@ -56,7 +57,7 @@ export const Detail = () => {
             <div className="col-lg-6 col-md-12 dtl_lft_wrp">
               <div className="dtl_lft">
                 <img
-                  src="https://nft-tailwind.preview.uideck.com/images/item-details/image-01.png"
+                  src={data?.preview_url}
                   alt="details image"
                 />
               </div>
@@ -69,8 +70,9 @@ export const Detail = () => {
                     type="button"
                     className="d-flex justify-content-between align-items-center like_btn "
                   >
-                    <img src={unliked} alt="" />
-                    <span>4.5k</span>
+                    {!data?.is_like ?  <img src={unliked} alt="" /> : <img src={liked} alt="" />}
+                   
+                    <span>{data?.total_like}</span>
                   </button>
                 </div>
                 <div className="nft_dtl_wrp d-flex justify-content-start align-items-center">
