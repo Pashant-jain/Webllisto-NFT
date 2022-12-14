@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { routeMap } from "../../rout-map";
 export const Header = () => {
     const navigate = useNavigate()
-    // const windowScroll  = window.scroll(0);
     const [small, setSmall] = useState(false);
     useEffect(() => {
       if (typeof window !== "undefined") {

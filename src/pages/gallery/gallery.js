@@ -27,6 +27,7 @@ export const Gallery = () => {
   };
   useEffect(() => {
     fetchData();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [catagory]);
 
   console.log(catagory);

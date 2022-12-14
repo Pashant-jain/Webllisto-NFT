@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./connect.scss";
 import metamask_logo from "../../assets/images/metamask_logo.svg";
 import kaikas_logo from "../../assets/images/kaikas_logo.svg";
 import { ethers } from "ethers";
-import { Spiner } from "../../components/spiner/spiner";
 import { toast } from "react-toastify";
-import { id } from "ethers/lib/utils";
 import Caver from "caver-js";
 
 export const Connect = () => {
   const caver = new Caver(window.klaytn);
-  const [haveMetamask, sethaveMetamask] = useState(true);
   const [accountAddress, setAccountAddress] = useState("");
   const [matamaskaccountBalance, setMetamaskAccountBalance] = useState("");
   const [klatnaccountAddress, setKlatnaccountAddress] = useState("");
@@ -25,10 +22,8 @@ export const Connect = () => {
 
   const checkMetamaskAvailability = async () => {
     if (ethereum) {
-      sethaveMetamask(true);
       try {
         if (ethereum) {
-          sethaveMetamask(false);
         }
         const accounts = await ethereum.request({
           method: "eth_requestAccounts",
@@ -42,33 +37,34 @@ export const Connect = () => {
         setIsConnected(false);
       }
     } else {
-      sethaveMetamask(false);
       toast.error("metamask  Wallet Not Found", {
         theme: "colored",
       });
     }
   };
-  const kaikas = async () => {
+  const kaikasConnect = async () => {
     try {
+      debugger;
       let kaikasWalletaddress = (await window.klaytn.enable())[0];
       const balance = await caver.klay.getBalance(kaikasWalletaddress);
       setKlatnaccountAddress(kaikasWalletaddress);
       setKlatnaccountBalance(balance);
-
-      console.log(klayProvider, "gha");
+      setIsConnected(true);
     } catch (error) {
+      setIsConnected(false);
       toast.error("kaikas Wallet Not Found", {
         theme: "colored",
       });
     }
   };
-  {accountAddress &&   ethereum.on("accountsChanged", function (accounts) {
-    checkMetamaskAvailability();
-  }); }
-{klatnaccountAddress &&  klayProvider.on("accountsChanged", function (kaikasWalletaddress) {
-  kaikas();
-});}
- 
+  { accountAddress &&
+      ethereum.on("accountsChanged", function (accounts) {
+        checkMetamaskAvailability()
+      }) }
+  {klatnaccountAddress &&
+      klayProvider.on("accountsChanged", function (kaikasWalletaddress) {
+        kaikasConnect()
+      }) }
 
   return (
     <div className="connect_wrp">
@@ -102,19 +98,27 @@ export const Connect = () => {
                 <p>Lorem ipsum dolor sit amet consectetur smit.</p>
               )}
             </div>
-            <div onClick={kaikas} className="wallet_block">
+            <div onClick={kaikasConnect} className="wallet_block">
               <figure>
                 <img src={kaikas_logo} alt="kaikas" />
               </figure>
               <h2>Kaikas</h2>
-              <p>
-                {klatnaccountAddress.toString().substring(0, 5) +
-                  "..." +
-                  klatnaccountAddress
-                    .toString()
-                    .substr(klatnaccountAddress.length - 4)}
-              </p>
-              <p>Wallet Ballence {klatnaccountBalance * 10 ** -18}</p>
+
+              {isConnected ? (
+                <>
+                  <p>
+                    {klatnaccountAddress.toString().substring(0, 5) +
+                      "..." +
+                      klatnaccountAddress
+                        .toString()
+                        .substr(klatnaccountAddress.length - 4)}
+                  </p>
+                  <p>Wallet Ballence {klatnaccountBalance * 10 ** -18}</p>
+                </>
+              ) : (
+                <p>Lorem ipsum dolor sit amet consectetur smit.</p>
+              )}
+            
             </div>
           </div>
         </div>
