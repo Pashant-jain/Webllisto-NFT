@@ -74,7 +74,6 @@ export const LatestDrop = () => {
             {loading ? (
               <div className="explore_nfts_spiner">
                 <Spiner />
-                
               </div>
             ) : (
               <>

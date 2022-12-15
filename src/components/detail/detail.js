@@ -5,7 +5,7 @@ import unliked from "../../assets/images/unliked_heart.gif";
 import liked from "../../assets/images/liked_heard.png";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { nftDetailAction, nftHistoryAction } from "../../redux";
+import { nftDetailAction, nftHistoryAction ,reactOnPostAction } from "../../redux";
 import { useParams } from "react-router-dom";
 import { Spiner } from "../spiner/spiner";
 import PutOnSale from "../modals/put-on-sale";
@@ -14,6 +14,7 @@ export const Detail = () => {
   const [data, setData] = useState();
   const [history, setHistory] = useState();
   const [modalPutOnSale, setModalPutOnSale] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const dispatch = useDispatch();
   const collectible_id = useParams();
 
@@ -22,11 +23,10 @@ export const Detail = () => {
       try {
         const res = await dispatch(nftDetailAction(collectible_id));
         const history = await dispatch(nftHistoryAction(collectible_id));
-
         if (res || history) {
           setHistory(history);
           setData(res);
-
+          setLikeCount(res?.total_like)
         }
       } catch (err) {}
     };
@@ -36,6 +36,19 @@ export const Detail = () => {
 
   const handleModalPutOnSale = () => {
     setModalPutOnSale(true)
+  }
+
+  const handleLike = async (e) =>{
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      debugger
+      console.log(collectible_id);
+      const res = await dispatch(reactOnPostAction({collectible_id: collectible_id?.id }));
+      if (res) { 
+        setLikeCount(res?.total_like)
+      }
+    } catch (err) {}
   }
   return (
     <div className="details_wrp">
@@ -53,6 +66,7 @@ export const Detail = () => {
                   <h2>{data?.title}</h2>
                   <button
                     type="button"
+                    onClick={(e) => handleLike(e)}
                     className="d-flex justify-content-between align-items-center like_btn "
                   >
                     {!data?.is_like ? (

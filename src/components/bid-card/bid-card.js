@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./bid-card.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeMap } from "../../rout-map";
 // import liked from '../../assets/images/liked_heard.png'
 
 export const BidCard = ({ data }) => {
+  const navigate = useNavigate()
+  
+  const goToDetails = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (
+      e.target.nodeName === 'IMG' &&
+      (e.target.id == 'like_btn') 
+    ){
+      return;
+    }
+    navigate(`${routeMap.Gallery}/${data._id}`)
+  };
+
   return (
-    <Link  to={`${routeMap.Gallery}/${data._id}`} className="birdcard_wrp">
+    <div  onClick={(e) => goToDetails(e)} className="birdcard_wrp">
       <div className="bidcard_inner">
         <div className="card_wrp">
           <img
@@ -56,6 +70,7 @@ export const BidCard = ({ data }) => {
           </button>
           <button
             type="button"
+            id="like_btn"
             className="d-flex justify-content-between align-items-center like_btn "
           >
             <img src={unliked} alt="" />
@@ -63,7 +78,7 @@ export const BidCard = ({ data }) => {
           </button>
         </div>
       </div>
-    </Link>
+    </div>
    
   );
 };

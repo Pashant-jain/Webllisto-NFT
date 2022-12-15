@@ -57,7 +57,8 @@ export const Create = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleModal = (e) => {
+  const handleSubmit = (e) => {
+
     e.preventDefault();
     setIsSubmitted(true);
     let errorMsg1 = "";
@@ -79,7 +80,6 @@ export const Create = () => {
         { appearance: "error", autoDismiss: true, theme: "colored", }
       );
     }
-
     if (title === "") {
       errorMsg2 = "Title can not be empty";
     }
@@ -105,7 +105,7 @@ export const Create = () => {
       errorMsg7 = "Please enter correct value";
     }
 
-    if (selectedCategory === "Select Category") {
+    if (selectedCategory.name === "Select Category") {
       errorMsg6 = "Category can not be empty";
     }
 
@@ -497,11 +497,11 @@ export const Create = () => {
                           fontWeight: "bold",
                         }}
                       >
-                        {error.selectedCategory}
+                        {error.nftCategory}
                       </span>
                     </div>
                     <div className="submit_wrp">
-                      <button type="submit" onClick={handleModal}>
+                      <button type="submit" onClick={handleSubmit}>
                         {isLoaded ? 'Create Item' : 'Creating Item ...'}
                       </button>
                     </div>
