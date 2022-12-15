@@ -13,14 +13,12 @@ import PutOnSale from "../modals/put-on-sale";
 export const Detail = () => {
   const [data, setData] = useState();
   const [history, setHistory] = useState();
-  const [loading, setLoading] = useState(false);
   const [modalPutOnSale, setModalPutOnSale] = useState(false);
   const dispatch = useDispatch();
   const collectible_id = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
         const res = await dispatch(nftDetailAction(collectible_id));
         const history = await dispatch(nftHistoryAction(collectible_id));
@@ -29,26 +27,12 @@ export const Detail = () => {
           setHistory(history);
           setData(res);
 
-          setLoading(false);
         }
       } catch (err) {}
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const settings = {
-    infinite: false,
-    dots: false,
-    speed: 300,
-    swipeToSlide: false,
-    focusOnSelect: true,
-    autoplay: true,
-    adaptiveHeight: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    adaptiveHeightSpeed: 750,
-  };
 
   const handleModalPutOnSale = () => {
     setModalPutOnSale(true)

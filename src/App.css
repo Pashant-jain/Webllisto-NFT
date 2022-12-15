@@ -7,6 +7,30 @@
   max-width:1400px;
   padding:0 32px;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #4d4c5a;
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #141420; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #141420; 
+}
+
 @media only screen and (max-width: 1199px) {
   .container-fluid{
     max-width:96%;

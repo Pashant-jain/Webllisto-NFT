@@ -5,6 +5,7 @@ import kaikas_logo from "../../assets/images/kaikas_logo.svg";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import Caver from "caver-js";
+import { isMobile } from 'react-device-detect';
 
 export const Connect = () => {
   const caver = new Caver(window.klaytn);
@@ -24,15 +25,19 @@ export const Connect = () => {
     if (ethereum) {
       try {
         if (ethereum) {
-        }
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        let balance = await provider.getBalance(accounts[0]);
-        let bal = ethers.utils.formatEther(balance);
-        setAccountAddress(accounts[0]);
-        setMetamaskAccountBalance(bal);
-        setIsConnected(true);
+          const accounts = await ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          let balance = await provider.getBalance(accounts[0]);
+          let bal = ethers.utils.formatEther(balance);
+          setAccountAddress(accounts[0]);
+          setMetamaskAccountBalance(bal);
+          setIsConnected(true);
+         }
+          if (isMobile){
+          window.location.href =
+          process.env.REACT_APP_METAMASK_DEEP_LINK_FOR_MOBILE;
+       }
       } catch (error) {
         setIsConnected(false);
       }
@@ -44,7 +49,6 @@ export const Connect = () => {
   };
   const kaikasConnect = async () => {
     try {
-      debugger;
       let kaikasWalletaddress = (await window.klaytn.enable())[0];
       const balance = await caver.klay.getBalance(kaikasWalletaddress);
       setKlatnaccountAddress(kaikasWalletaddress);

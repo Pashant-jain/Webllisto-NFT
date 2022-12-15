@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./bid-card.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
 import { Link } from "react-router-dom";
