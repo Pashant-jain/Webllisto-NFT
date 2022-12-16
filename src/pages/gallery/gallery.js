@@ -12,16 +12,6 @@ export const Gallery = () => {
   const [catagory, setCatagory] = useState();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const fetchCategoryData = async () => {
-    setLoading(true);
-    try {
-      const Collaction = await dispatch(AllcollectionCategory());
-      if ( Collaction) {
-        setCollection(Collaction);
-        setLoading(false);
-      }
-    } catch (err) {}
-  };
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -32,9 +22,19 @@ export const Gallery = () => {
       }
     } catch (err) {}
   };
+
+  const fetchCategoryData = async () => {
+    try {
+      const Collaction = await dispatch(AllcollectionCategory());
+      if ( Collaction) {
+        setCollection(Collaction);
+      }
+    } catch (err) {}
+  };
+  
   useEffect(() => {
     fetchData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [catagory]);
   useEffect(() => {
     fetchCategoryData()

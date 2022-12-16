@@ -6,8 +6,11 @@ import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import Caver from "caver-js";
 import { isMobile } from 'react-device-detect';
+import { useNavigate } from "react-router-dom";
+import { routeMap } from "../../rout-map";
 
 export const Connect = () => {
+  const navigate = useNavigate()
   const caver = new Caver(window.klaytn);
   const [accountAddress, setAccountAddress] = useState("");
   const [matamaskaccountBalance, setMetamaskAccountBalance] = useState("");
@@ -33,6 +36,7 @@ export const Connect = () => {
           setAccountAddress(accounts[0]);
           setMetamaskAccountBalance(bal);
           setIsConnected(true);
+          navigate(routeMap.Home)
          }
           if (isMobile){
           window.location.href =
@@ -54,6 +58,7 @@ export const Connect = () => {
       setKlatnaccountAddress(kaikasWalletaddress);
       setKlatnaccountBalance(balance);
       setIsConnected(true);
+      navigate(routeMap.Home)
     } catch (error) {
       setIsConnected(false);
       toast.error("kaikas Wallet Not Found", {

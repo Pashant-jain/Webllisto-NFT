@@ -40,13 +40,14 @@ export const Detail = () => {
 
   const handleLike = async (e) =>{
     e.preventDefault();
-    e.stopPropagation();
     try {
-      debugger
-      console.log(collectible_id);
       const res = await dispatch(reactOnPostAction({collectible_id: collectible_id?.id }));
       if (res) { 
-        setLikeCount(res?.total_like)
+        {data?.is_like ?  setLikeCount((data?.total_like) - 1) :  setLikeCount((data?.total_like) + 1) }
+        const res = await dispatch(nftDetailAction(collectible_id));
+        if (res) {
+          setData(res);
+        }
       }
     } catch (err) {}
   }
@@ -69,7 +70,7 @@ export const Detail = () => {
                     onClick={(e) => handleLike(e)}
                     className="d-flex justify-content-between align-items-center like_btn "
                   >
-                    {!data?.is_like ? (
+                    {!data?.is_like   ? (
                       <img src={unliked} alt="" />
                     ) : (
                       <img src={liked} alt="" />

@@ -1,32 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "./bid-card.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { routeMap } from "../../rout-map";
-// import liked from '../../assets/images/liked_heard.png'
+import liked from '../../assets/images/liked_heard.png'
+import { reactOnPostAction } from "../../redux";
 
-export const BidCard = ({ data }) => {
+export const BidCard = ({ data}) => {
   const navigate = useNavigate()
-  
+  const dispatch = useDispatch();
+  const [likeCount, setLikeCount] = useState(data?.total_like);
+
   const goToDetails = (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (
       e.target.nodeName === 'IMG' &&
-      (e.target.id == 'like_btn') 
+      e.target.id == 'like_btn'
     ){
       return;
     }
     navigate(`${routeMap.Gallery}/${data._id}`)
   };
-
+  const handleLike = async (e) =>{
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      const res = await dispatch(reactOnPostAction({collectible_id: data?._id }));
+      if (res) { 
+          setLikeCount(res.data.data.isLike ? 1 : 0)
+      }
+    } catch (err) {}
+  }
   return (
     <div  onClick={(e) => goToDetails(e)} className="birdcard_wrp">
       <div className="bidcard_inner">
         <div className="card_wrp">
           <img
             src={data.preview_url}
-            alt=""
+            alt="collection_img"
           />
         </div>
         <div className="card_dtl_wrp">
@@ -36,7 +49,7 @@ export const BidCard = ({ data }) => {
               <figure>
                 <img
                   src={data.userObj.image}
-                  alt=""
+                  alt="creater-image"
                 />
               </figure>
               <div className="creator_dtl">
@@ -68,14 +81,17 @@ export const BidCard = ({ data }) => {
           <button type="button" className="place_bid_btn">
             Place Bid
           </button>
+          
           <button
-            type="button"
-            id="like_btn"
-            className="d-flex justify-content-between align-items-center like_btn "
-          >
-            <img src={unliked} alt="" />
-            <span>{data.total_like}</span>
-          </button>
+          type="button"
+          id="like_btn"
+          onClick={(e) => handleLike(e)}
+          className="d-flex justify-content-between align-items-center like_btn "
+        >
+          <img src={unliked} alt="like_img" />
+          <span>{likeCount}</span>
+        </button>
+          
         </div>
       </div>
     </div>
