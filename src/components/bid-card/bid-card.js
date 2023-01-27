@@ -10,10 +10,18 @@ export const BidCard = ({ data }) => {
     <Link  to={`${routeMap.Gallery}/${data._id}`} className="birdcard_wrp">
       <div className="bidcard_inner">
         <div className="card_wrp">
-          <img
-            src={data.preview_url}
-            alt=""
-          />
+        {data.file_content_type === 'video/mp4' ? 
+              <video controls width='100%' height='100%'>
+              <source src={data.preview_url} type="video/mp4"/>
+              Your browser does not support the video tag.
+            </video>
+                :
+                <img
+                src={data.preview_url}
+                alt=""
+              />
+              }
+          
         </div>
         <div className="card_dtl_wrp">
           <h3>{data.title}</h3>
