@@ -1,13 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "./bid-card.scss";
 import unliked from "../../assets/images/unliked_heart.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routeMap } from "../../rout-map";
-// import liked from '../../assets/images/liked_heard.png'
+import liked from '../../assets/images/liked_heard.png'
+import { reactOnPostAction } from "../../redux";
 
-export const BidCard = ({ data }) => {
+export const BidCard = ({ data}) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const [likeCount, setLikeCount] = useState(data?.total_like);
+
+  const goToDetails = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (
+      e.target.nodeName === 'IMG' &&
+      e.target.id == 'like_btn'
+    ){
+      return;
+    }
+    navigate(`${routeMap.Gallery}/${data._id}`)
+  };
+  const handleLike = async (e) =>{
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      const res = await dispatch(reactOnPostAction({collectible_id: data?._id }));
+      if (res) { 
+          setLikeCount(res.data.data.isLike ? 1 : 0)
+      }
+    } catch (err) {}
+  }
   return (
-    <Link  to={`${routeMap.Gallery}/${data._id}`} className="birdcard_wrp">
+    <div  onClick={(e) => goToDetails(e)} className="birdcard_wrp">
       <div className="bidcard_inner">
         <div className="card_wrp">
         {data.file_content_type === 'video/mp4' ? 
@@ -18,7 +45,7 @@ export const BidCard = ({ data }) => {
                 :
                 <img
                 src={data.preview_url}
-                alt=""
+                alt="collection_img"
               />
               }
           
@@ -30,7 +57,7 @@ export const BidCard = ({ data }) => {
               <figure>
                 <img
                   src={data.userObj.image}
-                  alt=""
+                  alt="creater-image"
                 />
               </figure>
               <div className="creator_dtl">
@@ -47,7 +74,8 @@ export const BidCard = ({ data }) => {
               </div>
             </div>
             <div className="card_dtl_right_wrp">
-              <h4>{((data?.last_price)*10**(-18)).toFixed(2)} ETH</h4>
+              {data?.last_price &&   <h4>{((data?.last_price)*10**(-18)).toFixed(2)} ETH</h4>}
+             
 
               {/* {data?.last_price
                     ? data?.last_price.toString().substring(0, 5) +
@@ -61,16 +89,20 @@ export const BidCard = ({ data }) => {
           <button type="button" className="place_bid_btn">
             Place Bid
           </button>
+          
           <button
-            type="button"
-            className="d-flex justify-content-between align-items-center like_btn "
-          >
-            <img src={unliked} alt="" />
-            <span>{data.total_like}</span>
-          </button>
+          type="button"
+          id="like_btn"
+          onClick={(e) => handleLike(e)}
+          className="d-flex justify-content-between align-items-center like_btn "
+        >
+          <img src={unliked} alt="like_img" />
+          <span>{likeCount}</span>
+        </button>
+          
         </div>
       </div>
-    </Link>
+    </div>
    
   );
 };

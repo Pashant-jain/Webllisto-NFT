@@ -13,6 +13,8 @@
       border-radius: 8px;
       gap: 16px;
       display: flex;
+      width: 100%;
+      overflow: auto;
         button {
           font-weight: 600;
           font-size: 18px;

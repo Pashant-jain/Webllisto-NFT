@@ -16,20 +16,30 @@ export const Gallery = () => {
     setLoading(true);
     try {
       const res = await dispatch(galleryNftAction(catagory));
-      const Collaction = await dispatch(AllcollectionCategory());
-      if (res || Collaction) {
+      if (res) {
         setData(res);
-        setCollection(Collaction);
-        setCollection(Collaction);
         setLoading(false);
       }
     } catch (err) {}
   };
+
+  const fetchCategoryData = async () => {
+    try {
+      const Collaction = await dispatch(AllcollectionCategory());
+      if ( Collaction) {
+        setCollection(Collaction);
+      }
+    } catch (err) {}
+  };
+  
   useEffect(() => {
     fetchData();
+    
   }, [catagory]);
-
-  console.log(catagory);
+  useEffect(() => {
+    fetchCategoryData()
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="gallery_wrp">
       <div className="container-fluid">

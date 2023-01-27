@@ -60,6 +60,7 @@ export const LatestDrop = () => {
       } catch (err) {}
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // console.log(data);
   return (
@@ -73,7 +74,6 @@ export const LatestDrop = () => {
             {loading ? (
               <div className="explore_nfts_spiner">
                 <Spiner />
-                
               </div>
             ) : (
               <>

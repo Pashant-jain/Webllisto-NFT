@@ -24,7 +24,7 @@ export const Create = () => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [collectionAddress, setCollectionAddress] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [Ipfs, SetIpfs] = useState();
+  // const [Ipfs, SetIpfs] = useState();
   const [itemid, Setitemid] = useState("");
   const [error, setError] = useState({
     price: "",
@@ -54,9 +54,11 @@ export const Create = () => {
       } catch (err) {}
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleModal = (e) => {
+  const handleSubmit = (e) => {
+
     e.preventDefault();
     setIsSubmitted(true);
     let errorMsg1 = "";
@@ -67,7 +69,7 @@ export const Create = () => {
     let errorMsg6 = "";
     let errorMsg7 = "";
     let errorMsg8 = "";
-    if (attachment == "" || attachment == null || !attachment) {
+    if (attachment === "" || attachment === null || !attachment) {
       errorMsg1 = "Image can not be empty";
       setErrorAttach(true);
     } else if (attachment.size / 1024 / 1024 > 30) {
@@ -78,7 +80,6 @@ export const Create = () => {
         { appearance: "error", autoDismiss: true, theme: "colored", }
       );
     }
-
     if (title === "") {
       errorMsg2 = "Title can not be empty";
     }
@@ -104,7 +105,7 @@ export const Create = () => {
       errorMsg7 = "Please enter correct value";
     }
 
-    if (selectedCategory === "Select Category") {
+    if (selectedCategory.name === "Select Category") {
       errorMsg6 = "Category can not be empty";
     }
 
@@ -119,14 +120,14 @@ export const Create = () => {
       isAgreementSignedErr: errorMsg8,
     });
     if (
-      errorMsg1 == "" &&
-      errorMsg2 == "" &&
-      errorMsg3 == "" &&
-      errorMsg4 == "" &&
-      errorMsg5 == "" &&
-      errorMsg6 == "" &&
-      errorMsg7 == "" &&
-      errorMsg8 == ""
+      errorMsg1 === "" &&
+      errorMsg2 === "" &&
+      errorMsg3 === "" &&
+      errorMsg4 === "" &&
+      errorMsg5 === "" &&
+      errorMsg6 === "" &&
+      errorMsg7 === "" &&
+      errorMsg8 === ""
     ) {
       createTeamHandler();
     }
@@ -147,7 +148,7 @@ export const Create = () => {
       const formData = new FormData();
       formData.append("description", description || "");
       let network = 1;
-      if (network_id == process.env.REACT_APP_KLATYN_NETWORK_ID) {
+      if (network_id === process.env.REACT_APP_KLATYN_NETWORK_ID) {
         network = 2;
       }
       formData.append("title", title);
@@ -211,10 +212,10 @@ export const Create = () => {
   };
   const inputClickHandler = (e) => {
     const { name, value } = e.target;
-    const regexImg = new RegExp("(.*?).(gif|jpe?g|png|webp|bmp|svg)$");
+    // const regexImg = new RegExp("(.*?).(gif|jpe?g|png|webp|bmp|svg)$");
     switch (name) {
       case "attachment":
-        if (value === "" || value == null || !value) {
+        if (value === "" || value === null || !value) {
           if (!attachment) {
             setError({ ...error, attachment: "can not be empty" });
           }
@@ -370,13 +371,14 @@ export const Create = () => {
                         }}
                       >
                         {error.attachment}
+                       { errorAttach}
                       </span>
                           </div>
                         </>
                       ) : (
                         <>
                           <div className="droped_img_wrp">
-                            <img src={window.URL.createObjectURL(attachment)} />
+                            <img src={window.URL.createObjectURL(attachment)} alt='Attachment' />
                           </div>
                         </>
                       )}
@@ -495,11 +497,11 @@ export const Create = () => {
                           fontWeight: "bold",
                         }}
                       >
-                        {error.selectedCategory}
+                        {error.nftCategory}
                       </span>
                     </div>
                     <div className="submit_wrp">
-                      <button type="submit" onClick={handleModal}>
+                      <button type="submit" onClick={handleSubmit}>
                         {isLoaded ? 'Create Item' : 'Creating Item ...'}
                       </button>
                     </div>
