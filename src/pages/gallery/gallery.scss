@@ -15,33 +15,68 @@
       display: flex;
       width: 100%;
       overflow: auto;
-        button {
-          font-weight: 600;
-          font-size: 18px;
-          line-height: 20px;
-          background-color: #353444;
-          color: #fff;
-          padding: 12px;
-          border: unset;
-          border-radius: 8px;
-          &:hover{
-            background-color: #5142fc;
-          }
-        
+      button {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 20px;
+        background-color: #353444;
+        color: #fff;
+        padding: 12px;
+        border: unset;
+        border-radius: 8px;
+        &:hover {
+          background-color: #5142fc;
+        }
       }
     }
-    .explore_nfts_spiner{
+    .explore_nfts_spiner {
       min-height: 200px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .explore_nfts_wrp{
-        display: grid;
-        grid-template-columns: repeat(4,minmax(0,1fr));
-        gap:30px;
-        margin: 60px 0;
-       
+    .explore_nfts_wrp {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 30px;
+      margin: 60px 0;
     }
   }
 }
+// responsive
+@media only screen and (max-width: 1199px) {
+} /* 1024 */
+@media only screen and (max-width: 1023px) {
+  .gallery_wrp {
+    .gallery_inner {
+      .explore_nfts_wrp {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+} /* 980 */
+@media only screen and (max-width: 979px) {
+  
+} /* 768 */
+@media only screen and (max-width: 767px) {
+  .gallery_wrp {
+    .gallery_inner {
+      .explore_nfts_wrp {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+} /* 650 */
+@media only screen and (max-width: 649px) {
+  .gallery_wrp {
+    .gallery_inner {
+      .explore_nfts_wrp {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+  }
+} /* 480 */
+@media only screen and (max-width: 479px) {
+} /* 375 */
+@media only screen and (max-width: 374px) {
+} /* 320 */

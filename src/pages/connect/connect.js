@@ -16,7 +16,9 @@ export const Connect = () => {
   const [matamaskaccountBalance, setMetamaskAccountBalance] = useState("");
   const [klatnaccountAddress, setKlatnaccountAddress] = useState("");
   const [klatnaccountBalance, setKlatnaccountBalance] = useState("");
-  const [isConnected, setIsConnected] = useState(false);
+  // const [isConnected, setIsConnected] = useState(false);
+  const [isMetamaskConnected, setIsMetamaskConnected] = useState(false);
+  const [isKaikasConnected, setIsKaikasConnected] = useState(false);
   const { ethereum } = window;
   const klayProvider = window["klaytn"];
   const provider =
@@ -35,7 +37,7 @@ export const Connect = () => {
           let bal = ethers.utils.formatEther(balance);
           setAccountAddress(accounts[0]);
           setMetamaskAccountBalance(bal);
-          setIsConnected(true);
+          setIsMetamaskConnected(true);
           // navigate(routeMap.Home)
          }
           if (isMobile){
@@ -43,7 +45,7 @@ export const Connect = () => {
           process.env.REACT_APP_METAMASK_DEEP_LINK_FOR_MOBILE;
        }
       } catch (error) {
-        setIsConnected(false);
+        setIsMetamaskConnected(false);
       }
     } else {
       toast.error("metamask  Wallet Not Found", {
@@ -57,10 +59,10 @@ export const Connect = () => {
       const balance = await caver.klay.getBalance(kaikasWalletaddress);
       setKlatnaccountAddress(kaikasWalletaddress);
       setKlatnaccountBalance(balance);
-      setIsConnected(true);
+      setIsKaikasConnected(true);
       // navigate(routeMap.Home)
     } catch (error) {
-      setIsConnected(false);
+      setIsKaikasConnected(false);
       toast.error("kaikas Wallet Not Found", {
         theme: "colored",
       });
@@ -94,7 +96,7 @@ export const Connect = () => {
                 <img src={metamask_logo} alt="metamask" />
               </figure>
               <h2>Meta Mask</h2>
-              {isConnected ? (
+              {isMetamaskConnected ? (
                 <>
                   <p>
                     {" "}
@@ -113,7 +115,7 @@ export const Connect = () => {
               </figure>
               <h2>Kaikas</h2>
 
-              {isConnected ? (
+              {isKaikasConnected ? (
                 <>
                   <p>
                     {klatnaccountAddress.toString().substring(0, 5) +
