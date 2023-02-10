@@ -36,7 +36,7 @@ export const Connect = () => {
           setAccountAddress(accounts[0]);
           setMetamaskAccountBalance(bal);
           setIsConnected(true);
-          navigate(routeMap.Home)
+          // navigate(routeMap.Home)
          }
           if (isMobile){
           window.location.href =
@@ -58,7 +58,7 @@ export const Connect = () => {
       setKlatnaccountAddress(kaikasWalletaddress);
       setKlatnaccountBalance(balance);
       setIsConnected(true);
-      navigate(routeMap.Home)
+      // navigate(routeMap.Home)
     } catch (error) {
       setIsConnected(false);
       toast.error("kaikas Wallet Not Found", {
