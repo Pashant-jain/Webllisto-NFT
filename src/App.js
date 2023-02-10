@@ -26,7 +26,7 @@ function App() {
         <Route exact  path={routeMap.Gallery} element={<Gallery/>} />
         <Route exact  path={routeMap.Create} element={<Create/>} />
         <Route exact  path={routeMap.Connect} element={<Connect/>} />
-        <Route exact path={`${routeMap.Gallery}/:id`}  element={<Detail/>} />
+        {/* <Route exact path={`${routeMap.Gallery}/:id`}  element={<Detail/>} /> */}
       </Routes>
       <Footer/>
       <ToastContainer />
